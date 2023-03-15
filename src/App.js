@@ -36,8 +36,9 @@ function App() {
         </Box>
 
 
-        <Box sx={{ display: 'flex', justifyContent:"center" }}>
+        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2}}>
           <LineChart chartData={userData}/>
+          <BarChart chartData={userData}/>
 
         </Box>
       </div>
