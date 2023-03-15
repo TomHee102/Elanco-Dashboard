@@ -13,6 +13,7 @@ import List from '@mui/material/List';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import elanco from './icons/elanco.ico';
+import { CssBaseline } from '@mui/material';
 
 function App() {
   const [userData, setUserData] = React.useState({
