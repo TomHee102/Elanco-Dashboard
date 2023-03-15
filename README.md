@@ -2,6 +2,16 @@
 
 First year group project developed for the purposes of retrieving and displaying sensor point farming data from Elanco using the Swagger API.
 
+# What we're using
+
+ReactJS
+
+ChartJS
+
+MUI Component Library
+
+Swagger API
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
