@@ -8,7 +8,11 @@ ReactJS
 
 ChartJS
 
+@ npm install chart.js
+
 MUI Component Library
+
+@ npm install @mui/material @emotion/react @emotion/styled
 
 Swagger API
 
