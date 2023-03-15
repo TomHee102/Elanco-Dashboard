@@ -35,7 +35,11 @@ function App() {
           </AppBar>
         </Box>
 
-        <LineChart chartData={userData}/>
+
+        <Box sx={{ display: 'flex', justifyContent:"center" }}>
+          <LineChart chartData={userData}/>
+
+        </Box>
       </div>
     </div>
   );
