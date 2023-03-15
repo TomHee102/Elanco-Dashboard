@@ -8,13 +8,17 @@ ReactJS
 
 ChartJS
 
-@ npm install chart.js
+$ npm install chart.js
 
 MUI Component Library
 
-@ npm install @mui/material @emotion/react @emotion/styled
+$ npm install @mui/material @emotion/react @emotion/styled
 
 Swagger API
+
+AXIOS Library
+
+$ npm install axios
 
 # Getting Started with Create React App
 
