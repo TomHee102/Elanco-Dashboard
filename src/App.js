@@ -14,6 +14,8 @@ import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import elanco from './icons/elanco.ico';
 import { CssBaseline } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 function App() {
   const [userData, setUserData] = React.useState({
@@ -33,6 +35,20 @@ function App() {
               <img src={elanco} width="125px" height="auto" alt="Logo"/>
             </Toolbar>
           </AppBar>
+        </Box>
+
+        <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', width: 250 }}>
+          <Tabs
+            orientation="vertical"
+            aria-label="vertical tab"
+            sx={{ borderRight: 1, borderColor: 'divider' }}
+          >
+            <Tab label="Item One" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" />
+            <Tab label="Item Four" />
+            <Tab label="Item Five" />
+          </Tabs>
         </Box>
 
 
