@@ -10,6 +10,6 @@ export default function Fetchdata() {
     React.useEffect(() => {
         fetchdata();
     }
-    , []);
+    , []); //should fetching nce only
 }
 
