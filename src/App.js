@@ -37,11 +37,10 @@ function App() {
           </AppBar>
         </Box>
 
-        <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', width: 250 }}>
+        <Box sx={{ boxShadow: 10, position: 'absolute', flexGrow: 1, bgcolor: '#4c93d9', width: 200, height: 1080 }}>
           <Tabs
             orientation="vertical"
             aria-label="vertical tab"
-            sx={{ borderRight: 1, borderColor: 'divider' }}
           >
             <Tab label="Item One" />
             <Tab label="Item Two" />
