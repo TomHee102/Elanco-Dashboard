@@ -16,6 +16,7 @@ import elanco from './icons/elanco.ico';
 import { CssBaseline } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [userData, setUserData] = React.useState({
@@ -37,21 +38,11 @@ function App() {
           </AppBar>
         </Box>
 
-        <Box sx={{ boxShadow: 10, position: 'absolute', flexGrow: 1, bgcolor: '#4c93d9', width: 200, height: 1080 }}>
-          <Tabs
-            orientation="vertical"
-            aria-label="vertical tab"
-          >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-            <Tab label="Item Four" />
-            <Tab label="Item Five" />
-          </Tabs>
-        </Box>
+        <Sidebar/>
+        
 
 
-        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center'}}>
+        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center', width:1261+200}}>
           <LineChart chartData={userData}/>
           <BarChart chartData={userData}/>
 
