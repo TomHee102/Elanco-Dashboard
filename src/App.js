@@ -51,7 +51,7 @@ function App() {
         </Box>
 
 
-        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2}}>
+        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center'}}>
           <LineChart chartData={userData}/>
           <BarChart chartData={userData}/>
 
