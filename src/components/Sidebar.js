@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 
 export default function Sidebar() {
     return (
-        <Box sx={{ display:'flex', boxShadow: 10, position: 'absolute', flexGrow: 1, bgcolor: '#4c93d9', width: 200, height: 1080 }}>
+        <Box sx={{ boxShadow: 10, position: 'absolute', flexGrow: 1, bgcolor: '#4c93d9', width: 150, height: 1080, textAlign: 'left',}}>
           <Tabs
             orientation="vertical"
             aria-label="vertical tab"
