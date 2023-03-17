@@ -10,11 +10,11 @@ export default function Sidebar() {
             orientation="vertical"
             aria-label="vertical tab"
           >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-            <Tab label="Item Four" />
-            <Tab label="Item Five" />
+            <Tab sx={{"&:hover":{backgroundColor: 'white', boxShadow: 10}}} label="Item One" />
+            <Tab sx={{"&:hover":{backgroundColor: 'white', boxShadow: 10}}} label="Item Two" />
+            <Tab sx={{"&:hover":{backgroundColor: 'white', boxShadow: 10}}} label="Item Three" />
+            <Tab sx={{"&:hover":{backgroundColor: 'white', boxShadow: 10}}} label="Item Four" />
+            <Tab sx={{"&:hover":{backgroundColor: 'white', boxShadow: 10}}} label="Item Five" />
           </Tabs>
         </Box>
     )
