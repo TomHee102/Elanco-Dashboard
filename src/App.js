@@ -17,6 +17,8 @@ import { CssBaseline } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Sidebar from './components/Sidebar';
+import Fetchdata from './components/Fetchdata';
+import Outputdata from './components/Outputdata';
 
 function App() {
   const [userData, setUserData] = React.useState({
@@ -40,11 +42,14 @@ function App() {
 
         <Sidebar/>
         
-        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center', width:1261+200}}>
+        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center', }}>
           <LineChart chartData={userData}/>
           <BarChart chartData={userData}/>
+          {/*<Outputdata/>*/}
+
 
         </Box>
+
       </div>
     </div>
   );
