@@ -39,17 +39,18 @@ function App() {
             </Toolbar>
           </AppBar>
         </Box>
-
         <Sidebar/>
+
+
         
-        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center', }}>
+
+
+        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center', width:1261+200}}>
           <LineChart chartData={userData}/>
           <BarChart chartData={userData}/>
-          {/*<Outputdata/>*/}
-
+          <Outputdata/>
 
         </Box>
-
       </div>
     </div>
   );
