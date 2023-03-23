@@ -29,6 +29,12 @@ function App() {
     }]
   })
 
+  const [selectedPlot, setSelectedPlot] = React.useState('');
+
+  function getSelectedPlot(sidebarData){
+    setSelectedPlot(sidebarData);
+  }
+
   return (
     <div>
       <div className='App'>
@@ -39,7 +45,7 @@ function App() {
             </Toolbar>
           </AppBar>
         </Box>
-        <Sidebar/>
+        <Sidebar getSelectedPlot={getSelectedPlot} />
 
 
         
@@ -49,7 +55,7 @@ function App() {
           <LineChart chartData={userData}/>
           <BarChart chartData={userData}/>
           <Outputdata/>
-
+          <h1>Selected Plot = {selectedPlot}</h1>
         </Box>
       </div>
     </div>
