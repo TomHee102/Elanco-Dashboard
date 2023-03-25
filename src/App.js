@@ -51,10 +51,8 @@ function App() {
         
 
 
-        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center', width:1261+200}}>
-          <LineChart chartData={userData}/>
-          <BarChart chartData={userData}/>
-          <Outputdata/>
+        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center',  }}>
+          <Outputdata plot={selectedPlot}/>
           <h1>Selected Plot = {selectedPlot}</h1>
         </Box>
       </div>

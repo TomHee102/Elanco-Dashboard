@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
+import Outputdata from './Outputdata';
 
 export default function Sidebar({getSelectedPlot}) {
   const [requestedPlotId, setRequestedPlotId] = React.useState('');
@@ -11,7 +12,7 @@ export default function Sidebar({getSelectedPlot}) {
 
   const firstEvent = (event) => {
     setRequestedPlotId(event.target.value);
-    }
+  }
 
   const secondEvent = () => {
     if(requestedPlotId != '' && requestedPlotId > 0){
@@ -46,7 +47,7 @@ export default function Sidebar({getSelectedPlot}) {
               return(
                 <li key={val}>
                   <Button
-                    onClick={() => getSelectedPlot(val)}
+                    onClick={() => getSelectedPlot('plot'+val)}
                     fullWidth={true}
                   >
                     Plot {val}
