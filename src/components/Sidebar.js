@@ -23,40 +23,54 @@ export default function Sidebar({getSelectedPlot}) {
     setRequestedPlotId('');
   }    
   return(
-      <>
-        <Box sx={{ boxShadow: 10, position: 'absolute', flexGrow: 1, bgcolor: '#4c93d9', width: 150, height: 1080, textAlign: 'left',}}>
-          <TextField
-            helperText="Enter the Id of Plot"
-            hiddenLabel
-            type="number"
-            variant="filled" 
-            value={requestedPlotId} 
-            placeholder="Enter desired plot Id"
-            onChange={firstEvent}
-            />
-            <Button
-              fullWidth={true}
-              onClick={secondEvent}
-            >
-              Add Plot
-            </Button>
+    <>
+  <Box sx={{
+    boxShadow: 10,
+    position: 'fixed', // Change to fixed
+    top: 0, // Specify top position
+    left: 0, // Specify left position
+    flexGrow: 1,
+    bgcolor: '#4c93d9',
+    width: 150,
+    height: '100vh', // Use viewport height for full-height sidebar
+    textAlign: 'left',
+    
 
-        
-          {
-            plotId.map((val) => {
-              return(
-                <li key={val}>
-                  <Button
-                    onClick={() => getSelectedPlot('plot'+val)}
-                    fullWidth={true}
-                  >
-                    Plot {val}
-                  </Button>
-                </li>
-              );
-            })
-          }        
-        </Box>
-      </>
+    
+    }}>
+    <TextField
+      helperText="Enter the Id of Plot"
+      hiddenLabel
+      type="number"
+      height= '200px'
+      variant="filled" 
+      value={requestedPlotId} 
+      placeholder="Enter desired plot Id"
+      onChange={firstEvent}
+
+    />
+    <Button
+      fullWidth={true}
+      onClick={secondEvent}
+    >
+      Add Plot
+    </Button>
+    {
+      plotId.map((val) => {
+        return(
+          <li key={val}>
+            <Button
+              onClick={() => getSelectedPlot('plot'+val)}
+              fullWidth={true}
+            >
+              Plot {val}
+            </Button>
+          </li>
+        );
+      })
+    }        
+  </Box>
+</>
+
     );
 }

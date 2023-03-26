@@ -38,10 +38,13 @@ function App() {
   return (
     <div>
       <div className='App'>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
           <AppBar position="static">
-            <Toolbar variant="dense">
-              <img src={elanco} width="125px" height="auto" alt="Logo"/>
+            <Toolbar variant="dense" sx={{justifyContent: 'flex-end', height: '56px'}}>
+              <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, textAlign: 'center', marginLeft: '150px'}}>
+                Current plot is {selectedPlot}
+              </Typography>
+              <img src={elanco} width="125px" height="56px" alt="Logo" />
             </Toolbar>
           </AppBar>
         </Box>
@@ -51,9 +54,8 @@ function App() {
         
 
 
-        <Box sx={{ display: 'flex', justifyContent:"center", paddingTop:"20px", gap: 2, flexDirection: 'column', alignItems: 'center',  }}>
+        <Box sx={{ display:'flex', justifyContent:'center', alignItems:"center", minHeight: "100vh", }}>
           <Outputdata plot={selectedPlot}/>
-          <h1>Selected Plot = {selectedPlot}</h1>
         </Box>
       </div>
     </div>
