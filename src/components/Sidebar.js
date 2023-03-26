@@ -2,13 +2,15 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Select from 'react-select';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import Outputdata from './Outputdata';
+import OptionSelect from './OptionSelect';
 
 export default function Sidebar({getSelectedPlot}) {
   const [requestedPlotId, setRequestedPlotId] = React.useState('');
-  const [plotId, setPlotId] = React.useState([])
+  const [plotId, setPlotId] = React.useState([]);
 
   const firstEvent = (event) => {
     setRequestedPlotId(event.target.value);
@@ -21,7 +23,8 @@ export default function Sidebar({getSelectedPlot}) {
       });
     }    
     setRequestedPlotId('');
-  }    
+  }   
+  
   return(
     <>
   <Box sx={{
@@ -34,10 +37,10 @@ export default function Sidebar({getSelectedPlot}) {
     width: 150,
     height: '100vh', // Use viewport height for full-height sidebar
     textAlign: 'left',
-    
-
-    
     }}>
+
+    <OptionSelect />
+
     <TextField
       helperText="Enter the Id of Plot"
       hiddenLabel
@@ -55,6 +58,7 @@ export default function Sidebar({getSelectedPlot}) {
     >
       Add Plot
     </Button>
+
     {
       plotId.map((val) => {
         return(
@@ -63,6 +67,7 @@ export default function Sidebar({getSelectedPlot}) {
               onClick={() => getSelectedPlot('plot'+val)}
               fullWidth={true}
             >
+
               Plot {val}
             </Button>
           </li>
