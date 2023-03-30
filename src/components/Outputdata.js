@@ -1,9 +1,64 @@
 import React, { useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import { Line, Scatter } from "react-chartjs-2";
 import Fetchdata from "./Fetchdata";
 import { Bar } from "react-chartjs-2"
 
 export default function Outputdata({plot}) {
+
+
+    const crops = [
+        {
+          name: "Wheat",
+          ph: { min: 6, max: 6.8 },
+          temp: { min: 20, max: 30 },
+          humidity: { min: 40, max: 60 },
+          light: { min: 35, max: 65 },
+          costAndMaintenance: "£100",
+          yield: "£450",
+          growthTime: 45,
+        },
+        {
+          name: "Rice",
+          ph: { min: 6, max: 6.7 },
+          temp: { min: 20, max: 27 },
+          humidity: { min: 45, max: 75 },
+          light: { min: 50, max: 70 },
+          costAndMaintenance: "£50",
+          yield: "£250",
+          growthTime: 30,
+        },
+        {
+          name: "Corn",
+          ph: { min: 5.5, max: 7 },
+          temp: { min: 26, max: 30 },
+          humidity: { min: 50, max: 80 },
+          light: { min: 35, max: 85 },
+          costAndMaintenance: "£75",
+          yield: "£400",
+          growthTime: 90,
+        },
+        {
+          name: "Barley",
+          ph: { min: 6.5, max: 7 },
+          temp: { min: 14, max: 20 },
+          humidity: { min: 30, max: 60 },
+          light: { min: 20, max: 50 },
+          costAndMaintenance: "£150",
+          yield: "£500",
+          growthTime: 60,
+        },
+        {
+          name: "Oats",
+          ph: { min: 6.2, max: 6.6 },
+          temp: { min: 15, max: 25 },
+          humidity: { min: 25, max: 75 },
+          light: { min: 10, max: 40 },
+          costAndMaintenance: "£80",
+          yield: "£300",
+          growthTime: 30,
+        },
+      ];
+      
     
 
     //store the parameter passed to Fetchdata in a variable
@@ -13,7 +68,6 @@ export default function Outputdata({plot}) {
 
         useEffect(() => {
         async function fetchData() {
-            //if start date is given without end date, then end date is set to current date and if end date is given without start date, then start date is set to 1st Jan 2022. if no date is given, then the start date is set to 1st Jan 2022 and end date is set to 31st Dec 2022
             const response = await fetch(`https://sampledata.elancoapps.com/data/plot/${plot}`);
             
             const data = await response.json();
@@ -64,6 +118,8 @@ export default function Outputdata({plot}) {
             fetchData();
         }
         }, [plot]);
+        
+
 
         const BarChart_PH = (
         <Bar
@@ -90,7 +146,6 @@ export default function Outputdata({plot}) {
                 {
                 data: chartData.map((data) => data.temp[0]),
                 label: "Temperature",
-                backgroundColor: "rgba(75,255,192,1)",
                 },
             ],
             }}
