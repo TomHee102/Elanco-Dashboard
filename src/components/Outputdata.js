@@ -2,63 +2,95 @@ import React, { useEffect } from "react";
 import { Line, Scatter } from "react-chartjs-2";
 import Fetchdata from "./Fetchdata";
 import { Bar } from "react-chartjs-2"
+import crops from '../data/Crop.json';
+
+
+
+
+function PlotAnalysis(props) {
+    const chartData = props.chartData;
+  
+    // Define the crop type and its ranges
+    const cropType = "Wheat";
+    const ranges = {
+      ph: [6, 6.8],
+      temp: [20, 30],
+      humidity: [40, 60],
+      light: [35, 65],
+    };
+  
+    // Analyze each data point and calculate the profit
+    const analyzedData = chartData.map((data) => {
+      // Get the date and data points for this data point
+      const { date, ph, temp, humidity, light } = data;
+  
+      // Check if the data points fall within the corresponding range
+      const isWithinRange =
+        ph.every((value) => value >= ranges.ph[0] && value <= ranges.ph[1]) &&
+        temp.every((value) => value >= ranges.temp[0] && value <= ranges.temp[1]) &&
+        humidity.every(
+          (value) => value >= ranges.humidity[0] && value <= ranges.humidity[1]
+        ) &&
+        light.every((value) => value >= ranges.light[0] && value <= ranges.light[1]);
+  
+      // Calculate the profit if the data points are within range
+      const costAndMaintenance = "£100";
+      const yield_ = "£450";
+      const growthTimeInDays = 45;
+      const profit =
+        isWithinRange &&
+        parseFloat(yield_.slice(1)) -
+          parseFloat(costAndMaintenance.slice(1)) /
+            (365 / growthTimeInDays);
+  
+      return {
+        date,
+        isWithinRange,
+        profit,
+      };
+    });
+
+    console.log(analyzedData)
+  
+    // Render the analyzed data
+    return (
+      <div>
+        <h2>Plot Analysis</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Within Range</th>
+              <th>Profit</th>
+              <th>Crop</th>
+            </tr>
+          </thead>
+          <tbody>
+            {analyzedData.map((data) => (
+              <tr key={data.date}>
+                <td>{data.date}</td>
+                <td>{data.isWithinRange ? "Yes" : "No"}</td>
+                <td>{data.profit ? `£${data.profit.toFixed(2)}` : "-"}</td>
+                <td>{cropType}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <h1>Total Profit</h1>
+        <h2>
+            £
+            {analyzedData
+                .filter((data) => data.profit)
+                .reduce((total, data) => total + data.profit, 0)
+                .toFixed(2)}
+        </h2>
+      </div>
+    );
+  }
+  
 
 export default function Outputdata({plot}) {
 
-
-    const crops = [
-        {
-          name: "Wheat",
-          ph: { min: 6, max: 6.8 },
-          temp: { min: 20, max: 30 },
-          humidity: { min: 40, max: 60 },
-          light: { min: 35, max: 65 },
-          costAndMaintenance: "£100",
-          yield: "£450",
-          growthTime: 45,
-        },
-        {
-          name: "Rice",
-          ph: { min: 6, max: 6.7 },
-          temp: { min: 20, max: 27 },
-          humidity: { min: 45, max: 75 },
-          light: { min: 50, max: 70 },
-          costAndMaintenance: "£50",
-          yield: "£250",
-          growthTime: 30,
-        },
-        {
-          name: "Corn",
-          ph: { min: 5.5, max: 7 },
-          temp: { min: 26, max: 30 },
-          humidity: { min: 50, max: 80 },
-          light: { min: 35, max: 85 },
-          costAndMaintenance: "£75",
-          yield: "£400",
-          growthTime: 90,
-        },
-        {
-          name: "Barley",
-          ph: { min: 6.5, max: 7 },
-          temp: { min: 14, max: 20 },
-          humidity: { min: 30, max: 60 },
-          light: { min: 20, max: 50 },
-          costAndMaintenance: "£150",
-          yield: "£500",
-          growthTime: 60,
-        },
-        {
-          name: "Oats",
-          ph: { min: 6.2, max: 6.6 },
-          temp: { min: 15, max: 25 },
-          humidity: { min: 25, max: 75 },
-          light: { min: 10, max: 40 },
-          costAndMaintenance: "£80",
-          yield: "£300",
-          growthTime: 30,
-        },
-      ];
-      
     
 
     //store the parameter passed to Fetchdata in a variable
@@ -119,6 +151,11 @@ export default function Outputdata({plot}) {
         }
         }, [plot]);
         
+        
+        
+            
+
+        
 
 
         const BarChart_PH = (
@@ -134,6 +171,9 @@ export default function Outputdata({plot}) {
                 
                 },
             ],
+            options: {
+                responsive: true,
+            }
             }}
         />
         );
@@ -148,7 +188,11 @@ export default function Outputdata({plot}) {
                 label: "Temperature",
                 },
             ],
+            options: {
+                responsive: true,
+            }
             }}
+            
         />
         );
 
@@ -163,6 +207,10 @@ export default function Outputdata({plot}) {
                 backgroundColor: "rgba(255,99,132,1)",
                 },
             ],
+            options: {
+                responsive: true,
+            }
+
             }}
         />
         );
@@ -178,6 +226,9 @@ export default function Outputdata({plot}) {
                     backgroundColor: "rgba(100,99,132,1)",
                     },
                 ],
+                options: {
+                    responsive: true,
+                }
                 }}
             />
             );
@@ -191,6 +242,7 @@ export default function Outputdata({plot}) {
             {BarChart_Temp}
             {BarChart_Humidity}
             {BarChart_Light}
+            <PlotAnalysis chartData={chartData} />
         </div>
     )
 }

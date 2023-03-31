@@ -19,7 +19,8 @@ import Tab from '@mui/material/Tab';
 import Sidebar from './components/Sidebar';
 import Fetchdata from './components/Fetchdata';
 import Outputdata from './components/Outputdata';
-
+import { Container } from '@mui/material';
+import { Line } from 'react-chartjs-2';
 function App() {
   const [userData, setUserData] = React.useState({
     labels: UserData.map((data) => data.id),
@@ -40,7 +41,7 @@ function App() {
       <div className='App'>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
           <AppBar position="static">
-            <Toolbar variant="dense" sx={{justifyContent: 'flex-end', height: '56px'}}>
+            <Toolbar variant="dense" sx={{justifyContent: 'flex-end', height: '56px', }}>
               <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, textAlign: 'center', marginLeft: '150px'}}>
                 Current plot is {selectedPlot}
               </Typography>
@@ -53,10 +54,16 @@ function App() {
 
         
 
-
-        <Box sx={{ display:'flex', justifyContent:'center', alignItems:"center", minHeight: "100vh", }}>
+      <Box sx={{display:'flex', justifyContent:'left', alignItems:"flex-start", marginLeft:'125px', paddingLeft:"50px", }}>
+        <div class="chart">
           <Outputdata plot={selectedPlot}/>
-        </Box>
+        </div>
+          
+        
+      </Box>
+
+        
+
       </div>
     </div>
   );

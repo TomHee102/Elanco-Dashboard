@@ -1,0 +1,53 @@
+[
+    {
+      "cropType": "Wheat",
+      "phRange": [6, 6.8],
+      "tempRange": [20, 30],
+      "humidityRange": [40, 60],
+      "lightRange": [35, 65],
+      "costAndMaintenance": "£100",
+      "yield": "£450",
+      "growthTimeInDays": 45
+    },
+    {
+      "cropType": "Rice",
+      "phRange": [6, 6.7],
+      "tempRange": [20, 27],
+      "humidityRange": [45, 75],
+      "lightRange": [50, 70],
+      "costAndMaintenance": "£50",
+      "yield": "£250",
+      "growthTimeInDays": 30
+    },
+    {
+      "cropType": "Corn",
+      "phRange": [5.5, 7],
+      "tempRange": [26, 30],
+      "humidityRange": [50, 80],
+      "lightRange": [35, 85],
+      "costAndMaintenance": "£75",
+      "yield": "£400",
+      "growthTimeInDays": 90
+    },
+    {
+      "cropType": "Barley",
+      "phRange": [6.5, 7],
+      "tempRange": [14, 20],
+      "humidityRange": [30, 60],
+      "lightRange": [20, 50],
+      "costAndMaintenance": "£150",
+      "yield": "£500",
+      "growthTimeInDays": 60
+    },
+    {
+      "cropType": "Oats",
+      "phRange": [6.2, 6.6],
+      "tempRange": [15, 25],
+      "humidityRange": [25, 75],
+      "lightRange": [10, 40],
+      "costAndMaintenance": "£80",
+      "yield": "£300",
+      "growthTimeInDays": 30
+    }
+  ]
+  
