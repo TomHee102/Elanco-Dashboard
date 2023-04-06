@@ -4,7 +4,7 @@ import Fetchdata from "./Fetchdata";
 import { Bar } from "react-chartjs-2"
 import cropData from '../data/Crop.json';
 import { Pie } from "react-chartjs-2";
-
+import { Box } from "@mui/material";
 
 function PlotAnalysis(props) {
   const chartData = props.chartData;
@@ -103,17 +103,15 @@ function PlotAnalysis(props) {
           },
         ],
       }}
-      height={400}
-      width={600}
+      height={300}
+      width={500}
     />
   );
 
 
   return (
-    <div>
-      {cropType}
-      <h1>Crop Count</h1>
-      {cropCountItems}
+    <div class="piechart">
+
       {pieChart}
     </div>
   );
@@ -123,27 +121,6 @@ function PlotAnalysis(props) {
 
 
   
-
-
-  
-  
-
-  
-
-
-  
-
-  
-
-  
-  
-
-
-
-
-
-  
-
 export default function Outputdata({plot}) {
 
     
@@ -272,6 +249,7 @@ export default function Outputdata({plot}) {
 
         const BarChart_Light = (
             <Bar
+                
                 data={{
                 labels: chartData.map((data) => data.date),
                 datasets: [
@@ -292,14 +270,31 @@ export default function Outputdata({plot}) {
 
 
     return (
-        <div>
-            {BarChart_PH}
-            {BarChart_Temp}
-            {BarChart_Humidity}
-            {BarChart_Light}
-            <PlotAnalysis chartData={chartData} />
-        </div>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'flex-start', 
+        alignItems: 'flex-start', 
+        flexDirection: 'row', // set flexDirection to row to lay out components horizontally
+        width: 'auto', // set width to 100% to ensure all components are within the parent
+      }}>
+        <Box sx={{ 
+          flex: 1, // use flex: 1 to allow the barcharts to take up available space
+          marginLeft: '150px', 
+          paddingLeft: '20px', 
+          }}>
+          {BarChart_PH}
+          {BarChart_Temp}
+          {BarChart_Humidity}
+          {BarChart_Light}
+        </Box>
+        <Box sx={{ flex: 1,}}>
+          <PlotAnalysis chartData={chartData} />
+        </Box>
+      </Box>
+      
+        
     )
+                
 }
 
 
