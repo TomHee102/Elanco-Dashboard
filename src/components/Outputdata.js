@@ -77,6 +77,12 @@ function PlotAnalysis(props) {
 
   const pieChart = (
     <Pie
+      height={600}
+      width={900}
+      options={{
+        responsive: true,
+        maintainAspectRatio: false,
+      }}
       data={{
         labels: cropLabels,
         datasets: [
@@ -102,16 +108,14 @@ function PlotAnalysis(props) {
             borderWidth: 1,
           },
         ],
+
       }}
-      height={300}
-      width={500}
     />
   );
 
 
   return (
-    <div class="piechart">
-
+    <div>
       {pieChart}
     </div>
   );
@@ -274,23 +278,34 @@ export default function Outputdata({plot}) {
         display: 'flex', 
         justifyContent: 'flex-start', 
         alignItems: 'flex-start', 
-        flexDirection: 'row', // set flexDirection to row to lay out components horizontally
-        width: 'auto', // set width to 100% to ensure all components are within the parent
+        flexDirection: 'row',
+        flexWrap: 'wrap', 
       }}>
         <Box sx={{ 
-          flex: 1, // use flex: 1 to allow the barcharts to take up available space
-          marginLeft: '150px', 
-          paddingLeft: '20px', 
-          }}>
+          flex: 1,
+          minWidth: '300px',
+          paddingLeft: '20px',
+          marginLeft: '150px',
+        }}>
           {BarChart_PH}
           {BarChart_Temp}
           {BarChart_Humidity}
           {BarChart_Light}
         </Box>
-        <Box sx={{ flex: 1,}}>
-          <PlotAnalysis chartData={chartData} />
+        <Box sx={{ 
+          flex: 1,
+          minWidth: '300px',
+          height: '500px',
+          '@media (max-width: 1156px)': {
+            marginLeft: '160px',
+          },
+          
+        }}>
+          <PlotAnalysis chartData={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
         </Box>
       </Box>
+      
+      
       
         
     )
