@@ -6,6 +6,11 @@ import cropData from '../data/Crop.json';
 import { Pie } from "react-chartjs-2";
 import { Box } from "@mui/material";
 
+
+
+
+
+
 function PlotAnalysis(props) {
   const chartData = props.chartData;
   const cropsData = cropData;
@@ -72,52 +77,79 @@ function PlotAnalysis(props) {
     </div>
   ));
 
+  const [selectedCrop, setSelectedCrop] = React.useState("");
+  const [selectedProfit, setSelectedProfit] = React.useState(0);
+
+
   const cropLabels = Object.keys(cropCount);
   const cropValues = Object.values(cropCount);
 
-  const pieChart = (
-    <Pie
-      height={600}
-      width={900}
-      options={{
-        responsive: true,
-        maintainAspectRatio: false,
-      }}
-      data={{
-        labels: cropLabels,
-        datasets: [
-          {
-            data: cropValues,
-            label: "Crop Count",
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
+  
+  //enclose the piechart in a useEffect hook
+  const [pieChart, setPieChart] = React.useState(null);
 
-      }}
-    />
-  );
+  useEffect(() => {
+    setPieChart(
+      <Pie
+        data={{
+          labels: cropLabels,
+          datasets: [
+            {
+              label: "Crop Count",
+              data: cropValues,
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        }}
+        options={{
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: {
+            duration: 500,
+        },
+        }}
+      />
+    );
+  }, [cropLabels, cropValues]);
+
 
 
   return (
-    <div>
+    <Box sx={{maxWidth: "100%", maxHeight: "512px"}}>
       {pieChart}
-    </div>
+      <div>
+        <h2>Select a Crop:</h2>
+        <select onChange={(event) => {
+          const selectedCrop = event.target.value;
+          const selectedProfit = Number(ranges[selectedCrop].yield.replace(/[^0-9.-]+/g,"")) - Number(ranges[selectedCrop].costAndMaintenance.replace(/[^0-9.-]+/g,""));
+          // update the selected crop's profit in the state
+          setSelectedProfit(selectedProfit * cropCount[selectedCrop]);
+        }}>
+          {Object.keys(cropCount).map((crop) => (
+            <option key={crop} value={crop}>{crop}</option>
+          ))}
+        </select>
+        {selectedProfit && (
+          <h2>Profit: {selectedProfit}</h2>
+        )}
+      </div>
+    </Box>
   );
 }
 
@@ -301,6 +333,7 @@ export default function Outputdata({plot}) {
           },
           
         }}>
+
           <PlotAnalysis chartData={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
         </Box>
       </Box>

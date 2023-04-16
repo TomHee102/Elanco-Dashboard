@@ -14,7 +14,7 @@ import Sidebar from './components/Sidebar';
 import Outputdata from './components/Outputdata';
 import DateRangePickerComp from './components/DatePicker';
 import PlotAnalysis from './components/Outputdata';
-
+import { Calendar, DateRange } from 'react-date-range';
 
 function App() {
   const [userData, setUserData] = React.useState({
@@ -41,8 +41,8 @@ function App() {
       <div className='App'>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
           <AppBar position="static">
-            <Toolbar variant="dense" sx={{justifyContent: 'flex-end', height: '56px', }}>
-              <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, textAlign: 'center', marginLeft: '150px'}}>
+            <Toolbar variant="dense" sx={{justifyContent: 'flex-end', height: '56px', width:"calc(100%-150px)" }}>
+              <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, justifyContent:'center', alignItems: 'center', marginLeft:"225px"}}>
                 Current plot is {selectedPlot}
               </Typography>
               <img src={elanco} width="125px" height="56px" alt="Logo" />
@@ -50,12 +50,23 @@ function App() {
           </AppBar>
         </Box>
         <Sidebar getSelectedPlot={getSelectedPlot} />
+        
 
 
         
 
       
-          <Outputdata plot={selectedPlot}/>
+        {selectedPlot && (
+      <>
+        <Outputdata plot={selectedPlot}/>
+      </>
+    )}
+    {!selectedPlot && <Box sx={{height:"100%"}}>
+                <Typography variant="h6" color="inherit" component="div" sx={{marginLeft:"150px", paddingTop:"400px"}}>
+                please select a plot
+              </Typography>
+    </Box>}
+
 
         
 
