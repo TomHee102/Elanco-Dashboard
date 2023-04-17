@@ -12,9 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import elanco from './icons/elanco.ico';
 import Sidebar from './components/Sidebar';
 import Outputdata from './components/Outputdata';
-import DateRangePickerComp from './components/DatePicker';
 import PlotAnalysis from './components/Outputdata';
-import { Calendar, DateRange } from 'react-date-range';
 
 function App() {
   const [userData, setUserData] = React.useState({
