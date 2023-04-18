@@ -4,11 +4,14 @@ import Fetchdata from "./Fetchdata";
 import { Bar } from "react-chartjs-2"
 import cropData from '../data/Crop.json';
 import { Pie } from "react-chartjs-2";
-import { Box } from "@mui/material";
-
-
-
-
+import { Box} from "@mui/material";
+import {Pagination} from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { DataGrid } from "@mui/x-data-grid";
 
 
 function PlotAnalysis(props) {
@@ -78,6 +81,8 @@ function PlotAnalysis(props) {
   ));
 
   const [selectedCrop, setSelectedCrop] = React.useState("");
+  const [selectedYield, setSelectedYield] = React.useState(0);
+  const [selectedCost, setSelectedCost] = React.useState(0);
   const [selectedProfit, setSelectedProfit] = React.useState(0);
 
 
@@ -85,71 +90,103 @@ function PlotAnalysis(props) {
   const cropValues = Object.values(cropCount);
 
   
-  //enclose the piechart in a useEffect hook
-  const [pieChart, setPieChart] = React.useState(null);
+  const pieChart = (
+    <Pie
+      data={{
+        labels: cropLabels,
+        datasets: [
+          {
+            label: "Crop Count",
+            data: cropValues,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      }}
+      height={400}
+      width={600}
+      options={{
+        maintainAspectRatio: false,
+      }}
+    />
+  );
+  
 
-  useEffect(() => {
-    setPieChart(
-      <Pie
-        data={{
-          labels: cropLabels,
-          datasets: [
-            {
-              label: "Crop Count",
-              data: cropValues,
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-                "rgba(255, 159, 64, 0.2)",
-              ],
-              borderColor: [
-                "rgba(255, 99, 132, 1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(153, 102, 255, 1)",
-                "rgba(255, 159, 64, 1)",
-              ],
-              borderWidth: 1,
-            },
-          ],
-        }}
-        options={{
-          responsive: true,
-          maintainAspectRatio: false,
-          animation: {
-            duration: 500,
-        },
-        }}
-      />
-    );
-  }, [cropLabels, cropValues]);
 
 
 
   return (
     <Box sx={{maxWidth: "100%", maxHeight: "512px"}}>
-      {pieChart}
+  {pieChart}
+  <div>
+    <h2>Select a Crop:</h2>
+    <select onChange={(event) => {
+      const selectedCrop = event.target.value;
+      const selectedProfit = Number(ranges[selectedCrop].yield.replace(/[^0-9.-]+/g,"")) - Number(ranges[selectedCrop].costAndMaintenance.replace(/[^0-9.-]+/g,""));
+      const selectedCost = ranges[selectedCrop].costAndMaintenance;
+      const selectedYield = ranges[selectedCrop].yield;
+      setSelectedCrop(selectedCrop);
+      setSelectedCost(selectedCost);
+      setSelectedYield(selectedYield);
+      // update the selected crop's profit in the state
+      setSelectedProfit(selectedProfit * cropCount[selectedCrop]);
+    }}>
+      {Object.keys(cropCount).map((crop) => (
+        <option key={crop} value={crop}>{crop}</option>
+      ))}
+    </select>
+    {selectedProfit && (
       <div>
-        <h2>Select a Crop:</h2>
-        <select onChange={(event) => {
-          const selectedCrop = event.target.value;
-          const selectedProfit = Number(ranges[selectedCrop].yield.replace(/[^0-9.-]+/g,"")) - Number(ranges[selectedCrop].costAndMaintenance.replace(/[^0-9.-]+/g,""));
-          // update the selected crop's profit in the state
-          setSelectedProfit(selectedProfit * cropCount[selectedCrop]);
-        }}>
-          {Object.keys(cropCount).map((crop) => (
-            <option key={crop} value={crop}>{crop}</option>
-          ))}
-        </select>
-        {selectedProfit && (
-          <h2>Profit: {selectedProfit}</h2>
-        )}
+        <Table
+          sx={{ minWidth: 650 }}
+          aria-label="simple table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell>Crop Type</TableCell>
+              <TableCell align="right">Yield</TableCell>
+              <TableCell align="right">Cost</TableCell>
+              <TableCell align="right">Profit</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow
+              key={selectedCrop}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {selectedCrop}
+              </TableCell>
+              <TableCell align="right">{selectedYield}</TableCell>
+              <TableCell align="right">{selectedCost}</TableCell>
+              <TableCell align="right">{selectedProfit}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+
       </div>
-    </Box>
+      
+
+    )}
+  </div>
+</Box>
+
+
   );
 }
 
@@ -218,13 +255,54 @@ export default function Outputdata({plot}) {
             fetchData();
         }
         }, [plot]);
-        
-        
-        
-            
 
-        
+        //create a const DateRangePicker which will allow the user to select a date range from the existing chart data and when selected, all the data outside the selected range will be removed from the chartData array. make the picker from scratch
+        const [startDate, setStartDate] = React.useState("");
+        const [endDate, setEndDate] = React.useState("");
 
+        //handle filter but ensure that only the original chartData is filtered and not the filtered chartData
+        const handleFilter = () => {
+          const originalChartData = JSON.parse(localStorage.getItem(plot));
+
+          
+          // Filter the copy of chartData
+          const filteredData = originalChartData.filter((data) => {
+            return data.date >= startDate && data.date <= endDate;
+          });
+        
+          // Set the filteredData state variable to the filtered data
+          setChartData(filteredData);
+        };
+
+
+        const DateRangePicker = (
+          <div>
+            <h2>Select a Date Range:</h2>
+            <div>
+              <label>Start Date:</label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(event) => {
+                  setStartDate(null); // add this line to reset the state
+                  setStartDate(event.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <label>End Date:</label>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(event) => {
+                  setEndDate(null); // add this line to reset the state
+                  setEndDate(event.target.value);
+                }}
+              />
+              <button onClick={handleFilter}>Filter</button> 
+            </div>
+          </div>
+        );
 
         const BarChart_PH = (
         <Bar
@@ -240,7 +318,9 @@ export default function Outputdata({plot}) {
                 },
             ],
             options: {
+                maintainAspectRatio: false,
                 responsive: true,
+
             }
             }}
         />
@@ -254,10 +334,13 @@ export default function Outputdata({plot}) {
                 {
                 data: chartData.map((data) => data.temp[0]),
                 label: "Temperature",
+                backgroundColor: "orange"
                 },
             ],
             options: {
+                maintainAspectRatio: false,
                 responsive: true,
+
             }
             }}
             
@@ -277,6 +360,8 @@ export default function Outputdata({plot}) {
             ],
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+
             }
 
             }}
@@ -296,13 +381,33 @@ export default function Outputdata({plot}) {
                     },
                 ],
                 options: {
+                    maintainAspectRatio: false,
                     responsive: true,
+
                 }
                 }}
             />
             );
 
 
+
+      const [currentPage, setCurrentPage] = React.useState(1);
+      const chartsPerPage = 2;
+      
+      const chartsToDisplay = [
+        BarChart_PH,
+        BarChart_Temp,
+        BarChart_Humidity,
+        BarChart_Light
+      ];
+      
+      const startIndex = (currentPage - 1) * chartsPerPage;
+      const endIndex = startIndex + chartsPerPage;
+      const chartsOnCurrentPage = chartsToDisplay.slice(startIndex, endIndex);
+    
+      const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+      }
 
 
     return (
@@ -315,14 +420,28 @@ export default function Outputdata({plot}) {
       }}>
         <Box sx={{ 
           flex: 1,
-          minWidth: '300px',
+          width: '100%',
+          height: '100%',
           paddingLeft: '20px',
           marginLeft: '150px',
         }}>
-          {BarChart_PH}
-          {BarChart_Temp}
-          {BarChart_Humidity}
-          {BarChart_Light}
+          <Pagination
+            sx={{paddingTop: '20px'}}
+            paginationPosition="bottom"
+            chartsPerPage={chartsPerPage}
+            totalCharts={chartsToDisplay.length}
+            count={Math.ceil(chartsToDisplay.length / chartsPerPage)}
+            defaultPage={1}
+            handlePageChange={handlePageChange}
+            page = {currentPage}
+            onChange={(event, value) => {
+              handlePageChange(value);
+            }
+          }
+
+          />
+          {chartsOnCurrentPage}
+
         </Box>
         <Box sx={{ 
           flex: 1,
@@ -333,8 +452,9 @@ export default function Outputdata({plot}) {
           },
           
         }}>
-
+          {DateRangePicker}
           <PlotAnalysis chartData={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
+          
         </Box>
       </Box>
       
