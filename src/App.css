@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.analysis{
+  width: 50%;
+  height: 100%;
+  margin-top: 2rem;
+  background-color: #ff0000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart {
+  padding-right: 1rem;
+}

@@ -4,17 +4,25 @@ First year group project developed for the purposes of retrieving and displaying
 
 # What we're using
 
-ReactJS 
+ReactJS
+
+react-select
+
+npm install react-select
 
 ChartJS
 
-@ npm install chart.js
+$ npm install chart.js
 
 MUI Component Library
 
-@ npm install @mui/material @emotion/react @emotion/styled
+$ npm install @mui/material @emotion/react @emotion/styled
 
 Swagger API
+
+AXIOS Library
+
+$ npm install axios
 
 # Getting Started with Create React App
 
