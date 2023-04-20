@@ -84,6 +84,7 @@ function PlotAnalysis(props) {
   const [selectedYield, setSelectedYield] = React.useState(0);
   const [selectedCost, setSelectedCost] = React.useState(0);
   const [selectedProfit, setSelectedProfit] = React.useState(0);
+  const [selectedGrowTime, setSelectedGrowTime] = React.useState(0);
 
 
   const cropLabels = Object.keys(cropCount);
@@ -140,9 +141,11 @@ function PlotAnalysis(props) {
       const selectedProfit = Number(ranges[selectedCrop].yield.replace(/[^0-9.-]+/g,"")) - Number(ranges[selectedCrop].costAndMaintenance.replace(/[^0-9.-]+/g,""));
       const selectedCost = ranges[selectedCrop].costAndMaintenance;
       const selectedYield = ranges[selectedCrop].yield;
+      const selectedGrowTime = ranges[selectedCrop].growthTimeInDays;
       setSelectedCrop(selectedCrop);
       setSelectedCost(selectedCost);
       setSelectedYield(selectedYield);
+      setSelectedGrowTime(selectedGrowTime);
       // update the selected crop's profit in the state
       setSelectedProfit(selectedProfit * cropCount[selectedCrop]);
     }}>
@@ -160,6 +163,7 @@ function PlotAnalysis(props) {
             <TableRow>
               <TableCell>Crop Type</TableCell>
               <TableCell align="right">Yield</TableCell>
+              <TableCell align="right">Grow Time</TableCell>
               <TableCell align="right">Cost</TableCell>
               <TableCell align="right">Profit</TableCell>
             </TableRow>
@@ -173,8 +177,9 @@ function PlotAnalysis(props) {
                 {selectedCrop}
               </TableCell>
               <TableCell align="right">{selectedYield}</TableCell>
+              <TableCell align="right">{selectedGrowTime} days</TableCell>
               <TableCell align="right">{selectedCost}</TableCell>
-              <TableCell align="right">{selectedProfit}</TableCell>
+              <TableCell align="right">£{selectedProfit}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
